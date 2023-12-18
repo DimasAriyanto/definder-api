@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAll, create, getOne, update, remove } = require('../controllers/tempatWisata.controllers');
+const { getAll, create, getOne, update, remove } = require('../controllers/tempatWisata.controller');
 const router = express.Router();
 
 router.get('/', getAll);

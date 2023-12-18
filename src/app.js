@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const port = process.env.PORT || 3000;
 const url =  process.env.APP_URL ||'http://localhost';
-const router = require('./routes');
+const router = require('./routers');
 
 const app = express();
 

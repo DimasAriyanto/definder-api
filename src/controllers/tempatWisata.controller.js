@@ -1,8 +1,9 @@
-const catagoryRepository = require('../repositories/categories');
+const tempatWisataRepository = require('../repositories/tempatwisata.repository');
+const catagoryRepository = require('../repositories/categories.repository');
 
 const getAll = async (req, res, next) => {
   try {
-    const result = await catagoryRepository.getCategoryAll();
+    const result = await tempatWisataRepository.getTempatWisataAll();
     res.status(200).json({
       status: 'Success',
       message: 'Success',
@@ -15,8 +16,8 @@ const getAll = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
   try {
-    await catagoryRepository.checkAvailableCategory(req.params.id);
-    const result = await catagoryRepository.getCategoryById(req);
+    await tempatWisataRepository.checkAvailableTempatWisata(req.params.id);
+    const result = await tempatWisataRepository.getTempatWisataById(req);
     res.status(200).json({
       status: 'Success',
       message: 'Success',
@@ -29,7 +30,8 @@ const getOne = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const result = await catagoryRepository.createCategory(req);
+    await catagoryRepository.checkAvailableCategory(req.body.catagory_id);
+    const result = await tempatWisataRepository.createTempatWisata(req);
     res.status(201).json({
       status: 'Success',
       message: 'Success',
@@ -43,8 +45,8 @@ const create = async (req, res, next) => {
 const remove = async (req, res, next) => {
   try {
     const { id } = req.params;
-    await catagoryRepository.checkAvailableCategory(id);
-    const result = await catagoryRepository.deleteCategory(id);
+    await tempatWisataRepository.checkAvailableTempatWisata(id);
+    const result = await tempatWisataRepository.deleteTempatWisata(id);
     res.status(200).json({
       status: 'Success',
       message: 'Success',
@@ -58,8 +60,8 @@ const remove = async (req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const { id } = req.params;
-    await catagoryRepository.checkAvailableCategory(id);
-    const result = await catagoryRepository.updateCategory(req);
+    await tempatWisataRepository.checkAvailableTempatWisata(id);
+    const result = await tempatWisataRepository.updateTempatWisata(req);
     res.status(200).json({
       status: 'Success',
       message: 'Success',
