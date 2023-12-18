@@ -3,7 +3,7 @@ const { getAll, create, getOne, update, remove } = require('../controllers/categ
 const { authenticateUser } = require('../middlewares/auth');
 const router = express.Router();
 
-router.get('/', getAll);
+router.get('/category', getAll);
 router.post('/category', authenticateUser ,create);
 router.get('/:id', getOne);
 router.put('/:id', update);

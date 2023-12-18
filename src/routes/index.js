@@ -5,7 +5,6 @@ const path = require('path');
 const v1 = '/api/v1';
 
 const Auth = require('./auth.router');
-const UserRefreshToken = require('./userRefreshToken.router');
 const Category = require('./category.router');
 const TempatWisata = require('./tempatWisata.router');
 
@@ -19,7 +18,6 @@ router.get('/', (req, res) => {
 });
 
 router.use(`${v1}/cms`, Auth);
-router.use('/refresh-token/:refreshToken', UserRefreshToken);
 router.use(`${v1}/cms`, Category);
 router.use('/tempat-wisata', TempatWisata);
 

@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:latest
+    container_name: db_definder_api
+    restart: always
+    environment:
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: 123dimas
+      POSTGRES_DB: definder
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: definder_api
+    restart: unless-stopped
+    environment:
+      PORT: 3030
+      APP_URL : http://localhost
+
+      DB_CONNECTION : postgres
+      DB_HOST : db
+      DB_DATABASE : definder
+      DB_USERNAME : developer
+      DB_PASSWORD : 123dimas
+
+      JWT_SECRET_KEY : secret
+      JWT_EXPIRATION : 1hr
+    volumes:
+      - /usr/src/app/node_modules
+      - .:/usr/src/app
+    ports:
+      - "3030:3030"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
