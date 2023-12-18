@@ -9,25 +9,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.belongsToMany(models.TempatWisata, {
-        through: 'Review',
-      });
-      User.belongsToMany(models.Category, {
-        through: 'UserFavoriteCategory',
-      });
-      User.belongsToMany(models.TempatWisata, {
-        through: 'UserFavoriteTempatWisata',
-      });
+      // User.belongsToMany(models.TempatWisata, {
+      //   through: 'Review',
+      // });
+      // User.belongsToMany(models.Category, {
+      //   through: 'UserFavoriteCategory',
+      // });
+      // User.belongsToMany(models.TempatWisata, {
+      //   through: 'UserFavoriteTempatWisata',
+      // });
     }
   }
   User.init(
     {
-      name: {
+      id: {
         allowNull: false,
-        type: DataTypes.STRING,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        type: DataTypes.UUID
       },
-      username: {
-        allowNull: false,
+      name: {
+        allowNull: true,
         type: DataTypes.STRING,
       },
       email: {
@@ -35,21 +37,18 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         type: DataTypes.STRING,
       },
-      nomerTelepon: {
+      role:{
+        allowNull: false,
+        defaultValue: 'umum',
+        type: DataTypes.ENUM('admin', 'umum')
+      },
+      password: {
         allowNull: true,
         type: DataTypes.STRING,
       },
-      tanggalLahir: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      domisili: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      password: {
-        allowNull: false,
-        type: DataTypes.STRING,
+      googleId: {
+        allowNull: true,
+        type: DataTypes.STRING
       },
     },
     {

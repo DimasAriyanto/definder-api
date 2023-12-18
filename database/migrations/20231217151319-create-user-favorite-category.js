@@ -2,12 +2,23 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('TempatWisata', {
+    await queryInterface.createTable('UserFavoriteCategories', {
       id: {
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
         type: Sequelize.UUID
+      },
+      profileId: {
+        field: 'profile_id',
+        allowNull: false,
+        references: {
+          model: 'Profiles',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        type: Sequelize.UUID,
       },
       categoryId: {
         field: 'category_id',
@@ -19,41 +30,6 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         type: Sequelize.UUID,
-      },
-      nama: {
-        field: 'nama',
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      alamat: {
-        field: 'alamat',
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      koordinat: {
-        field: 'koordinat',
-        allowNull: false,
-        type: Sequelize.DECIMAL(10,8),
-      },
-      mapsUrl: {
-        field: 'maps_url',
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      rating: {
-        field: 'rating',
-        allowNull: false,
-        type: Sequelize.DECIMAL(2,1),
-      },
-      jumlahReview: {
-        field: 'jumlah_review',
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
-      deskripsi: {
-        field: 'deskripsi',
-        allowNull: true,
-        type: Sequelize.TEXT,
       },
       createdAt: {
         field: 'created_at',
@@ -75,6 +51,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('TempatWisata');
+    await queryInterface.dropTable('UserFavoriteCategories');
   }
 };

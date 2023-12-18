@@ -9,11 +9,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID
       },
-      userId: {
-        field: 'user_id',
+      profileId: {
+        field: 'profile_id',
         allowNull: false,
         references: {
-          model: 'Users',
+          model: 'Profiles',
           key: 'id'
         },
         onUpdate: 'CASCADE',

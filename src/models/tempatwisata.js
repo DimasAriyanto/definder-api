@@ -27,20 +27,16 @@ module.exports = (sequelize, DataTypes) => {
         as: 'LokasiAkhir',
         foreignKey: 'idLokasiAkhir',
       });
-      TempatWisata.belongsToMany(models.User, {
-        through: 'Review',
-      });
-      TempatWisata.belongsToMany(models.User, {
-        through: 'UserFavoriteTempatWisata',
-      });
+      // TempatWisata.belongsToMany(models.User, {
+      //   through: 'Review',
+      // });
+      // TempatWisata.belongsToMany(models.User, {
+      //   through: 'UserFavoriteTempatWisata',
+      // });
     }
   }
   TempatWisata.init(
     {
-      nama: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
       categoryId: {
         allowNull: false,
         type: DataTypes.UUID,
@@ -53,11 +49,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      lintang: {
-        allowNull: false,
-        type: DataTypes.DECIMAL(10, 8),
-      },
-      bujur: {
+      koordinat: {
         allowNull: false,
         type: DataTypes.DECIMAL(10, 8),
       },

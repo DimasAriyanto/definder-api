@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('UserFavoriteCategories', {
+    await queryInterface.createTable('Profiles', {
       id: {
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
@@ -20,16 +20,25 @@ module.exports = {
         onDelete: 'CASCADE',
         type: Sequelize.UUID,
       },
-      categoryId: {
-        field: 'category_id',
+      nomerTelepon: {
+        field: 'nomer_telepon',
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      tanggalLahir: {
+        field: 'tangal_lahir',
         allowNull: false,
-        references: {
-          model: 'Categories',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        type: Sequelize.UUID,
+        type: Sequelize.DATE
+      },
+      domisili: {
+        field: 'domisili',
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      status: {
+        field: 'status',
+        allowNull: false,
+        type: Sequelize.ENUM('Bekerja', 'Mahasiwa/Sekolah')
       },
       createdAt: {
         field: 'created_at',
@@ -51,6 +60,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('UserFavoriteCategories');
+    await queryInterface.dropTable('Profiles');
   }
 };

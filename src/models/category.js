@@ -12,13 +12,19 @@ module.exports = (sequelize, DataTypes) => {
       Category.hasMany(models.TempatWisata, {
         foreignKey: 'categoryId',
       });
-      Category.belongsToMany(models.User, {
-        through: 'UserFavoriteCategory',
-      });
+      // Category.belongsToMany(models.User, {
+      //   through: 'UserFavoriteCategory',
+      // });
     }
   }
   Category.init(
     {
+      id: {
+        allowNull: false,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        type: DataTypes.UUID
+      },
       nama: {
         allowNull: false,
         type: DataTypes.STRING,

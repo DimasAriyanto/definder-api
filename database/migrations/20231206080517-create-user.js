@@ -10,45 +10,31 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID
       },
-      nama: {
-        field: 'nama',
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      username: {
-        field: 'username',
+      name: {
+        field: 'name',
         allowNull: true,
         type: Sequelize.STRING
       },
       email: {
         field: 'email',
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      nomerTelepon: {
-        field: 'nomer_telepon',
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      tanggalLahir: {
-        field: 'tangal_lahir',
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      domisili: {
-        field: 'domisili',
         allowNull: false,
         type: Sequelize.STRING
+      },
+      role:{
+        field: 'role',
+        allowNull: false,
+        defaultValue: 'umum',
+        type: Sequelize.ENUM('admin', 'umum')
       },
       password: {
         field: 'password',
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING
       },
-      status: {
-        field: 'status',
-        allowNull: false,
-        type: Sequelize.ENUM('Bekerja', 'Mahasiwa/Sekolah')
+      googleId: {
+        field: 'google_id',
+        allowNull: true,
+        type: Sequelize.STRING
       },
       createdAt: {
         field: 'created_at',

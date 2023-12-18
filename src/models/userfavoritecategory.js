@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   UserFavoriteCategory.init(
     {
-      userId: {
+      profileId: {
         allowNull: false,
         type: DataTypes.UUID,
       },

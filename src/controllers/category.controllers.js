@@ -15,6 +15,7 @@ const getAll = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
   try {
+    await catagoryRepository.checkAvailableCategory(req.params.id);
     const result = await catagoryRepository.getCategoryById(req);
     res.status(200).json({
       status: 'Success',

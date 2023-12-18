@@ -1,30 +1,16 @@
 const { Transaction } = require('sequelize');
 const { sequelize, Category } = require('../models');
 const { NotFoundError } = require('../errors');
-const { nanoid } = require('nanoid');
 
 const getCategoryAll = async () => {
-  const result = await sequelize.transaction(
-    { isolationLevel: Transaction.ISOLATION_LEVELS.READ_COMMITTED },
-    async (transaction) => {
-      const categories = await Category.findAll({ transaction });
-      return categories;
-    }
-  );
+  const result = await Category.findAll();
 
   return result;
 };
 
 const getCategoryById = async (req) => {
   const { id } = req.params;
-  const result = await sequelize.transaction(
-    { isolationLevel: Transaction.ISOLATION_LEVELS.READ_COMMITTED },
-    async (transaction) => {
-      const category = await Category.findByPk(id, { transaction });
-
-      return category;
-    }
-  );
+  const result = await Category.findByPk(id);
 
   return result;
 };
