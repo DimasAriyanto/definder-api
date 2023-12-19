@@ -9,8 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID
       },
-      nama: {
-        field: 'nama',
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
       },

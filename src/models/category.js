@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Category.hasMany(models.TempatWisata, {
-        foreignKey: 'categoryId',
-      });
+      // Category.hasMany(models.TempatWisata, {
+      //   foreignKey: 'categoryId',
+      // });
       // Category.belongsToMany(models.User, {
       //   through: 'UserFavoriteCategory',
       // });
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.UUID
       },
-      nama: {
+      name: {
         allowNull: false,
         type: DataTypes.STRING,
       },

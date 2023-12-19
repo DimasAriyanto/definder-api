@@ -11,20 +11,12 @@ module.exports = {
         type: Sequelize.UUID
       },
       name: {
-        field: 'name',
         allowNull: true,
         type: Sequelize.STRING
       },
       email: {
-        field: 'email',
         allowNull: false,
         type: Sequelize.STRING
-      },
-      role:{
-        field: 'role',
-        allowNull: false,
-        defaultValue: 'umum',
-        type: Sequelize.ENUM('admin', 'umum')
       },
       password: {
         field: 'password',

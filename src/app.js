@@ -3,8 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const port = process.env.PORT || 3000;
-const url =  process.env.APP_URL ||'http://localhost';
+const port = process.env.PORT || 8080;
+// const url =  process.env.APP_URL ||'http://localhost';
 const router = require('./routers');
 
 const app = express();
@@ -17,6 +17,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(router);
 
-app.listen(port, () => console.log(`Server running on [${url}:${port}]`));
+app.listen(port, () => console.log(`Server running on [${port}]`));
 
 module.exports = app;

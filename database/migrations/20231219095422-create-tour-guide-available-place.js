@@ -2,44 +2,30 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Photos', {
-      id: {
+    await queryInterface.createTable('TourGuideAvailablePlaces', {
+      tourGuideId: {
+        field: 'tour_guide_id',
         allowNull: false,
-        defaultValue: Sequelize.UUIDV4,
+        references: {
+          model: 'TourGuides',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         primaryKey: true,
-        type: Sequelize.UUID
-      },
-      tempatWisataId: {
-        field: 'tempat_wisata_id',
-        allowNull: true,
-        references: {
-          model: 'TempatWisata',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
         type: Sequelize.UUID,
       },
-      reviewId: {
-        field: 'review_id',
-        allowNullValues: true,
-        references: {
-          model: 'Reviews',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        type: Sequelize.UUID,
-      },
-      url: {
-        field: 'url',
+      placeId: {
+        field: 'place_id',
         allowNull: false,
-        type: Sequelize.STRING,
-      },
-      deskripsi: {
-        field: 'deskripsi',
-        allowNull: true,
-        type: Sequelize.TEXT,
+        references: {
+          model: 'Places',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        primaryKey: true,
+        type: Sequelize.UUID,
       },
       createdAt: {
         field: 'created_at',
@@ -48,7 +34,7 @@ module.exports = {
         type: Sequelize.DATE,
       },
       updatedAt: {
-        field: 'updated_at',  
+        field: 'updated_at',
         allowNull: false,
         defaultValue: new Date(),
         type: Sequelize.DATE,
@@ -61,6 +47,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Photos');
+    await queryInterface.dropTable('TourGuideAvailablePlaces');
   }
 };

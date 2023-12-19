@@ -2,58 +2,49 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('TempatWisata', {
+    await queryInterface.createTable('TourGuides', {
       id: {
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
         type: Sequelize.UUID
       },
-      categoryId: {
-        field: 'category_id',
+      userId: {
+        field: 'user_id',
         allowNull: false,
         references: {
-          model: 'Categories',
+          model: 'Users',
           key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         type: Sequelize.UUID,
       },
-      nama: {
-        field: 'nama',
+      experience: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT
       },
-      alamat: {
-        field: 'alamat',
+      languageSpoken: {
+        field: 'language_spoken',
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING
       },
-      koordinat: {
-        field: 'koordinat',
+      specializations: {
         allowNull: false,
-        type: Sequelize.DECIMAL(10,8),
+        type: Sequelize.STRING
       },
-      mapsUrl: {
-        field: 'maps_url',
-        type: Sequelize.STRING,
+      certifications: {
         allowNull: false,
+        type: Sequelize.STRING
       },
-      rating: {
-        field: 'rating',
+      availabilitySchedule: {
+        field: 'availability_schedule',
         allowNull: false,
-        type: Sequelize.DECIMAL(2,1),
+        type: Sequelize.STRING
       },
-      jumlahReview: {
-        field: 'jumlah_review',
+      cost: {
         allowNull: false,
-        type: Sequelize.INTEGER,
-      },
-      deskripsi: {
-        field: 'deskripsi',
-        allowNull: true,
-        type: Sequelize.TEXT,
+        type: Sequelize.DECIMAL
       },
       createdAt: {
         field: 'created_at',
@@ -75,6 +66,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('TempatWisata');
+    await queryInterface.dropTable('TourGuides');
   }
 };

@@ -2,12 +2,23 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Profiles', {
+    await queryInterface.createTable('Wishlists', {
       id: {
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
+      },
+      placeId: {
+        field: 'place_id',
+        allowNull: false,
+        references: {
+          model: 'Places',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        type: Sequelize.UUID,
       },
       userId: {
         field: 'user_id',
@@ -19,26 +30,6 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         type: Sequelize.UUID,
-      },
-      nomerTelepon: {
-        field: 'nomer_telepon',
-        allowNull: true,
-        type: Sequelize.STRING
-      },
-      tanggalLahir: {
-        field: 'tangal_lahir',
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      domisili: {
-        field: 'domisili',
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      status: {
-        field: 'status',
-        allowNull: false,
-        type: Sequelize.ENUM('Bekerja', 'Mahasiwa/Sekolah')
       },
       createdAt: {
         field: 'created_at',
@@ -60,6 +51,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Profiles');
+    await queryInterface.dropTable('Wishlists');
   }
 };

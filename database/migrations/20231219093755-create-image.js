@@ -2,44 +2,39 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Rutes', {
+    await queryInterface.createTable('Images', {
       id: {
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.UUID
+        type: Sequelize.UUID,
       },
-      idLokasiAwal: {
-        field: 'id_lokasi_awal',
+      placeId: {
+        field: 'place_id',
         allowNull: false,
         references: {
-          model: 'TempatWisata',
+          model: 'Places',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        type: Sequelize.UUID,
+      },
+      userId: {
+        field: 'user_id',
+        allowNull: false,
+        references: {
+          model: 'Users',
           key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         type: Sequelize.UUID,
       },
-      idLokasiAkhir: {
-        field: 'id_lokasi_akhir',
+      featuredImage: {
+        field: 'featured_image',
         allowNull: false,
-        type: Sequelize.UUID,
-        references: {
-          model: 'TempatWisata',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      jarak: {
-        field: 'jarak',
-        allowNull: false,
-        type: Sequelize.DECIMAL(10,2),
-      },
-      durasi: {
-        field: 'durasi',
-        allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING
       },
       createdAt: {
         field: 'created_at',
@@ -61,6 +56,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Rutes');
+    await queryInterface.dropTable('Images');
   }
 };

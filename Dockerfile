@@ -4,10 +4,10 @@ WORKDIR /usr/src
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY . .
 
-EXPOSE 3030
+EXPOSE 8080
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]

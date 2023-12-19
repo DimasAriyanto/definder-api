@@ -2,44 +2,47 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Videos', {
+    await queryInterface.createTable('SocialMedia', {
       id: {
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.UUID
-      },
-      tempatWisataId: {
-        field: 'tempat_wisata_id',
-        allowNull: true,
-        references: {
-          model: 'TempatWisata',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
         type: Sequelize.UUID,
       },
-      reviewId: {
-        field: 'review_id',
-        allowNullValues: true,
-        references: {
-          model: 'Reviews',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        type: Sequelize.UUID,
-      },
-      url: {
-        field: 'url',
+      placeId: {
+        field: 'place_id',
         allowNull: false,
+        references: {
+          model: 'Places',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        type: Sequelize.UUID,
+      },
+      website: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
-      deskripsi: {
-        field: 'deskripsi',
+      instagram: {
         allowNull: true,
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
+      },
+      facebook: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      twitter: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      threads: {
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      youtube: {
+        allowNull: true,
+        type: Sequelize.STRING,
       },
       createdAt: {
         field: 'created_at',
@@ -61,6 +64,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Videos');
-  }
+    await queryInterface.dropTable('SocialMedia');
+  },
 };
