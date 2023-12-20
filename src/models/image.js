@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Image extends Model {
     /**
@@ -11,13 +9,53 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Image.belongsTo(models.Place);
+      Image.belongsTo(models.User);
     }
   }
-  Image.init({
-    placeId: DataTypes.UUID
-  }, {
-    sequelize,
-    modelName: 'Image',
-  });
+  Image.init(
+    {
+      id: {
+        allowNull: false,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        type: DataTypes.UUID,
+      },
+      placeId: {
+        field: 'place_id',
+        allowNull: false,
+        references: {
+          model: 'Places',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        type: DataTypes.UUID,
+      },
+      userId: {
+        field: 'user_id',
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        type: DataTypes.UUID,
+      },
+      featuredImage: {
+        field: 'featured_image',
+        allowNull: false,
+        type: DataTypes.STRING
+      },
+    },
+    {
+      sequelize,
+      modelName: 'Image',
+      tableName: 'Images',
+      underscored: true,
+      paranoid: true,
+    }
+  );
   return Image;
 };

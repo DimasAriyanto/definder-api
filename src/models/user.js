@@ -9,15 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // User.belongsToMany(models.TempatWisata, {
-      //   through: 'Review',
-      // });
-      // User.belongsToMany(models.Category, {
-      //   through: 'UserFavoriteCategory',
-      // });
-      // User.belongsToMany(models.TempatWisata, {
-      //   through: 'UserFavoriteTempatWisata',
-      // });
+      User.hasOne(models.Review, {
+        foreignKey: 'userId',
+      });
+      User.hasOne(models.Owner, {
+        foreignKey: 'userId',
+      });
+      User.hasMany(models.Image, {
+        foreignKey: 'userId',
+      });
+      User.belongsToMany(models.Place, {
+        through: 'Wishlist',
+      });
     }
   }
   User.init(
@@ -26,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
-        type: DataTypes.UUID
+        type: DataTypes.UUID,
       },
       name: {
         allowNull: true,
@@ -37,18 +40,13 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         type: DataTypes.STRING,
       },
-      role:{
-        allowNull: false,
-        defaultValue: 'umum',
-        type: DataTypes.ENUM('admin', 'umum')
-      },
       password: {
         allowNull: true,
         type: DataTypes.STRING,
       },
       googleId: {
         allowNull: true,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
     },
     {

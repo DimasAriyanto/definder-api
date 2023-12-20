@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Article extends Model {
+  class PlaceCategory extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,44 +9,43 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Article.belongsTo(models.TourGuide);
     }
   }
-  Article.init(
+  PlaceCategory.init(
     {
-      id: {
-        allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-        type: DataTypes.UUID,
-      },
-      tourGuideId: {
-        field: 'tour_guide_id',
+      placeId: {
+        field: 'place_id',
         allowNull: false,
         references: {
-          model: 'TourGuides',
+          model: 'Places',
           key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+        primaryKey: true,
         type: DataTypes.UUID,
       },
-      title: {
+      categoryId: {
+        field: 'category_id',
         allowNull: false,
-        type: DataTypes.STRING,
-      },
-      content: {
-        allowNull: false,
-        type: DataTypes.TEXT,
+        references: {
+          model: 'Categories',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        primaryKey: true,
+        type: DataTypes.UUID,
       },
     },
     {
       sequelize,
-      modelName: 'Article',
-      tableName: 'Articles',
+      modelName: 'PlaceCategory',
+      tableName: 'PlaceCategories',
       underscored: true,
       paranoid: true,
+      timestamps: false,
     }
   );
-  return Article;
+  return PlaceCategory;
 };

@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       // Category.hasMany(models.TempatWisata, {
       //   foreignKey: 'categoryId',
       // });
-      // Category.belongsToMany(models.User, {
-      //   through: 'UserFavoriteCategory',
-      // });
+      Category.belongsToMany(models.Place, {
+        through: 'PlaceCategory',
+      });
     }
   }
   Category.init(

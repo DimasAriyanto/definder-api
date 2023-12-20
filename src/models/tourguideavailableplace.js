@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class TourGuideAvailablePlace extends Model {
     /**
@@ -13,11 +11,40 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  TourGuideAvailablePlace.init({
-    placeId: DataTypes.UUID
-  }, {
-    sequelize,
-    modelName: 'TourGuideAvailablePlace',
-  });
+  TourGuideAvailablePlace.init(
+    {
+      tourGuideId: {
+        field: 'tour_guide_id',
+        allowNull: false,
+        references: {
+          model: 'TourGuides',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        primaryKey: true,
+        type: DataTypes.UUID,
+      },
+      placeId: {
+        field: 'place_id',
+        allowNull: false,
+        references: {
+          model: 'Places',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        primaryKey: true,
+        type: DataTypes.UUID,
+      },
+    },
+    {
+      sequelize,
+      modelName: 'TourGuideAvailablePlace',
+      tableName: 'TourGuideAvailablePlaces',
+      underscored: true,
+      paranoid: true,
+    }
+  );
   return TourGuideAvailablePlace;
 };
