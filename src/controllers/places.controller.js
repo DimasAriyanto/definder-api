@@ -1,9 +1,9 @@
 const { StatusCodes } = require('http-status-codes');
-const categoryService = require('./../services/categories.service');
+const placeService = require('./../services/places.service');
 
 const getAll = async (req, res, next) => {
   try {
-    const result = await categoryService.getAll();
+    const result = await placeService.getAll();
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -17,7 +17,35 @@ const getAll = async (req, res, next) => {
 const getOne = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await categoryService.getById({ id });
+    const result = await placeService.getById({ id });
+    res.status(StatusCodes.OK).json({
+      status: 'Success',
+      message: 'Success',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getByNameAndProvinci = async (req, res, next) => {
+  try {
+    const { name, provinci } = req.query;
+    const result = await placeService.getByNameAndProvinci({ name, provinci });
+    res.status(StatusCodes.OK).json({
+      status: 'Success',
+      message: 'Success',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const search = async (req, res, next) => {
+  try {
+    const { name } = req.query;
+    const result = await placeService.search(name);
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -30,12 +58,11 @@ const getOne = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const { name } = req.body;
-    const result = await categoryService.create({ name });
+    const payload = { ...req.body };
+    await placeService.create(payload);
     res.status(StatusCodes.CREATED).json({
       status: 'Success',
       message: 'Success',
-      data: result,
     });
   } catch (error) {
     next(error);
@@ -45,8 +72,10 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { name } = req.body;
-    await categoryService.update({ id, name });
+    const payload = {
+      ...req.body,
+    };
+    await placeService.update(id, payload);
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -59,7 +88,7 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
   try {
     const { id } = req.params;
-    await categoryService.remove({ id });
+    await placeService.remove({ id });
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -72,6 +101,8 @@ const remove = async (req, res, next) => {
 module.exports = {
   getAll,
   getOne,
+  search,
+  getByNameAndProvinci,
   create,
   update,
   remove,

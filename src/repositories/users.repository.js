@@ -1,5 +1,20 @@
 const { sequelize, User } = require('../models');
 
+const getAll = async () => {
+  return User.findAll();
+};
+
+const getById = async (id) => {
+  return User.findByPk(id);
+};
+
+const getByEmail = async (email) => {
+  return sequelize.transaction(async (transaction) => {
+    const result = await User.findOne({ where: { email } }, { transaction });
+    return result;
+  });
+};
+
 const create = async (payload) => {
   return sequelize.transaction(async (transaction) => {
     const result = await User.create(payload, { transaction });
@@ -7,15 +22,26 @@ const create = async (payload) => {
   });
 };
 
-const findByEmail = async (email) => {
+const update = async ({ id, name, email, password }) => {
   return sequelize.transaction(async (transaction) => {
-    const result = await User.findOne({ where: { email } }, { transaction });
-    return result;
+    await User.update(
+      {
+        name: name,
+        email: email,
+        password: password,
+      },
+      {
+        where: { id: id },
+      },
+      { transaction }
+    );
   });
 };
 
-const checkAvailableUserWithEmail = async (email) => {
-  return User.findOne({ where: { email } });
+const remove = async (id) => {
+  return await User.destroy({
+    where: { id: id },
+  });
 };
 
-module.exports = { create, findByEmail, checkAvailableUserWithEmail };
+module.exports = { getAll, getById, getByEmail, create, update, remove };

@@ -6,9 +6,9 @@ module.exports = {
     await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
-        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.UUID
+        autoIncrement: true,
+        type: Sequelize.INTEGER,
       },
       name: {
         allowNull: true,
@@ -23,11 +23,6 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING
       },
-      googleId: {
-        field: 'google_id',
-        allowNull: true,
-        type: Sequelize.STRING
-      },
       createdAt: {
         field: 'created_at',
         allowNull: false,
@@ -38,11 +33,6 @@ module.exports = {
         field: 'updated_at',  
         allowNull: false,
         defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      deletedAt: {
-        field: 'deleted_at',
-        allowNull: true,
         type: Sequelize.DATE,
       },
     });

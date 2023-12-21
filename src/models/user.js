@@ -12,12 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Review, {
         foreignKey: 'userId',
       });
-      User.hasOne(models.Owner, {
-        foreignKey: 'userId',
-      });
-      User.hasMany(models.Image, {
-        foreignKey: 'userId',
-      });
       User.belongsToMany(models.Place, {
         through: 'Wishlist',
       });
@@ -25,12 +19,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      id: {
-        allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-        type: DataTypes.UUID,
-      },
       name: {
         allowNull: true,
         type: DataTypes.STRING,
@@ -44,17 +32,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.STRING,
       },
-      googleId: {
-        allowNull: true,
-        type: DataTypes.STRING,
-      },
     },
     {
       sequelize,
       modelName: 'User',
       tableName: 'Users',
       underscored: true,
-      paranoid: true,
     }
   );
   return User;

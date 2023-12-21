@@ -5,9 +5,9 @@ module.exports = {
     await queryInterface.createTable('Articles', {
       id: {
         allowNull: false,
-        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.UUID,
+        autoIncrement: true,
+        type: Sequelize.INTEGER,
       },
       tourGuideId: {
         field: 'tour_guide_id',
@@ -18,7 +18,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
       },
       title: {
         allowNull: false,
@@ -38,11 +38,6 @@ module.exports = {
         field: 'updated_at',
         allowNull: false,
         defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      deletedAt: {
-        field: 'deleted_at',
-        allowNull: true,
         type: Sequelize.DATE,
       },
     });

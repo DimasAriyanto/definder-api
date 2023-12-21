@@ -1,9 +1,9 @@
 const { StatusCodes } = require('http-status-codes');
-const categoryService = require('./../services/categories.service');
+const ownerService = require('./../services/owners.service');
 
 const getAll = async (req, res, next) => {
   try {
-    const result = await categoryService.getAll();
+    const result = await ownerService.getAll();
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -17,7 +17,7 @@ const getAll = async (req, res, next) => {
 const getOne = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await categoryService.getById({ id });
+    const result = await ownerService.getById({ id });
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -30,8 +30,8 @@ const getOne = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const { name } = req.body;
-    const result = await categoryService.create({ name });
+    const payload = { ...req.body };
+    const result = await ownerService.create(payload);
     res.status(StatusCodes.CREATED).json({
       status: 'Success',
       message: 'Success',
@@ -44,9 +44,11 @@ const create = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const { name } = req.body;
-    await categoryService.update({ id, name });
+    const payload = {
+      id: req.params.id,
+      ...req.body,
+    };
+    await ownerService.update(payload);
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -59,7 +61,7 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
   try {
     const { id } = req.params;
-    await categoryService.remove({ id });
+    await ownerService.remove({ id });
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',

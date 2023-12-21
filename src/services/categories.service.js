@@ -17,13 +17,13 @@ const getById = async ({ id }) => {
   return categoryRepository.getById(id);
 };
 
-const create = async ({ nama }) => {
-  return categoryRepository.create({ nama });
+const create = async (payload) => {
+  return categoryRepository.create(payload);
 };
 
-const update = async ({ id, nama }) => {
+const update = async ({ id, name }) => {
   await checkCategoryAvailability(id);
-  return categoryRepository.update({ id, nama });
+  return categoryRepository.update({ id, name });
 };
 
 const remove = async ({ id }) => {

@@ -14,12 +14,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Article.init(
     {
-      id: {
-        allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true,
-        type: DataTypes.UUID,
-      },
       tourGuideId: {
         field: 'tour_guide_id',
         allowNull: false,
@@ -29,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
       title: {
         allowNull: false,

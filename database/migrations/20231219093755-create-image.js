@@ -5,9 +5,9 @@ module.exports = {
     await queryInterface.createTable('Images', {
       id: {
         allowNull: false,
-        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.UUID,
+        autoIncrement: true,
+        type: Sequelize.INTEGER,
       },
       placeId: {
         field: 'place_id',
@@ -18,21 +18,9 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
       },
-      userId: {
-        field: 'user_id',
-        allowNull: false,
-        references: {
-          model: 'Users',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        type: Sequelize.UUID,
-      },
-      featuredImage: {
-        field: 'featured_image',
+      image: {
         allowNull: false,
         type: Sequelize.STRING
       },
@@ -46,11 +34,6 @@ module.exports = {
         field: 'updated_at',  
         allowNull: false,
         defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      deletedAt: {
-        field: 'deleted_at',
-        allowNull: true,
         type: Sequelize.DATE,
       },
     });

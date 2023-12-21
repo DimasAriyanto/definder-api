@@ -12,7 +12,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
       },
       userId: {
         field: 'user_id',
@@ -23,7 +23,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         field: 'created_at',
@@ -35,11 +35,6 @@ module.exports = {
         field: 'updated_at',
         allowNull: false,
         defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      deletedAt: {
-        field: 'deleted_at',
-        allowNull: true,
         type: Sequelize.DATE,
       },
     });

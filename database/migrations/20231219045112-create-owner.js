@@ -5,20 +5,9 @@ module.exports = {
     await queryInterface.createTable('Owners', {
       id: {
         allowNull: false,
-        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.UUID,
-      },
-      userId: {
-        field: 'user_id',
-        allowNull: false,
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        type: Sequelize.UUID,
+        autoIncrement: true,
+        type: Sequelize.INTEGER,
       },
       name: {
         allowNull: true,
@@ -39,11 +28,6 @@ module.exports = {
         field: 'updated_at',
         allowNull: false,
         defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      deletedAt: {
-        field: 'deleted_at',
-        allowNull: true,
         type: Sequelize.DATE,
       },
     });

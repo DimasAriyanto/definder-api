@@ -9,10 +9,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Owner.belongsTo(models.User);
-      Owner.hasMany(models.Place, {
-        foreignKey: 'ownerId',
-      });
     }
   }
   Owner.init(
@@ -21,17 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
-        type: DataTypes.UUID,
-      },
-      userId: {
-        field: 'user_id',
-        allowNull: false,
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
         type: DataTypes.UUID,
       },
       name: {

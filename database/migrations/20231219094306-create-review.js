@@ -5,9 +5,9 @@ module.exports = {
     await queryInterface.createTable('Reviews', {
       id: {
         allowNull: false,
-        defaultValue: Sequelize.UUIDV4,
         primaryKey: true,
-        type: Sequelize.UUID,
+        autoIncrement: true,
+        type: Sequelize.INTEGER,
       },
       placeId: {
         field: 'place_id',
@@ -18,7 +18,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
       },
       userId: {
         field: 'user_id',
@@ -29,7 +29,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
       },
       review: {
         allowNull: false,
@@ -49,11 +49,6 @@ module.exports = {
         field: 'updated_at',
         allowNull: false,
         defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      deletedAt: {
-        field: 'deleted_at',
-        allowNull: true,
         type: Sequelize.DATE,
       },
     });

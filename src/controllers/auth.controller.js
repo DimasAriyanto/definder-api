@@ -1,10 +1,11 @@
 const { StatusCodes } = require('http-status-codes');
 const authService = require('../services/auth.service');
+const userService = require('../services/users.service');
 
 const register = async (req, res, next) => {
   try {
     const payload = { ...req.body };
-    const result = await authService.register(payload);
+    const result = await userService.create(payload);
     res.status(StatusCodes.CREATED).json(result);
   } catch (err) {
     next(err);

@@ -15,39 +15,21 @@ const create = async (payload) => {
   });
 };
 
-const update = async ({ id, nama }) => {
+const update = async ({ id, name }) => {
   return sequelize.transaction(async (transaction) => {
     await Category.update(
-      { nama: nama },
+      { name: name },
       {
         where: { id: id },
-        transaction,
-      }
+      },
+      { transaction }
     );
-
-    const updatedCategoryData = await Category.findByPk(id, {
-      transaction,
-    });
-
-    return {
-      id: updatedCategoryData.id,
-      nama: updatedCategoryData.nama,
-      createdAt: updatedCategoryData.createdAt,
-      updatedAt: updatedCategoryData.updatedAt,
-    };
   });
 };
 
 const remove = async (id) => {
-  return sequelize.transaction(async (transaction) => {
-    await Category.destroy({
-      where: {
-        id: id,
-      },
-      transaction,
-    });
-
-    return {};
+  return await Category.destroy({
+    where: { id: id },
   });
 };
 

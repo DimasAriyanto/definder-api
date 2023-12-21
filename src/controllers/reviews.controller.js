@@ -1,9 +1,9 @@
 const { StatusCodes } = require('http-status-codes');
-const categoryService = require('./../services/categories.service');
+const reviewService = require('./../services/reviews.service');
 
 const getAll = async (req, res, next) => {
   try {
-    const result = await categoryService.getAll();
+    const result = await reviewService.getAll();
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -17,7 +17,7 @@ const getAll = async (req, res, next) => {
 const getOne = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await categoryService.getById({ id });
+    const result = await reviewService.getById({ id });
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -30,8 +30,12 @@ const getOne = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const { name } = req.body;
-    const result = await categoryService.create({ name });
+    const payload = {
+      placeId: req.params.place_id,
+      userId: req.user.id,
+      ...req.body,
+    };
+    const result = await reviewService.create(payload);
     res.status(StatusCodes.CREATED).json({
       status: 'Success',
       message: 'Success',
@@ -44,9 +48,12 @@ const create = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const { name } = req.body;
-    await categoryService.update({ id, name });
+    const payload = {
+      userId: req.user.id,
+      ...req.params,
+      ...req.body,
+    };
+    await reviewService.update(payload);
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -59,7 +66,7 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
   try {
     const { id } = req.params;
-    await categoryService.remove({ id });
+    await reviewService.remove({ id });
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
