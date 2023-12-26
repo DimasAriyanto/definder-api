@@ -22,19 +22,7 @@ module.exports = {
       },
       image: {
         allowNull: false,
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        field: 'created_at',
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        field: 'updated_at',  
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
+        type: Sequelize.TEXT
       },
     });
   },

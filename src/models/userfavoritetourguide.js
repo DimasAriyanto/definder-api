@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Wishlist extends Model {
+  class UserFavoriteTourGuide extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,46 +11,44 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Wishlist.init(
+  UserFavoriteTourGuide.init(
     {
       id: {
         allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
+        autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER
       },
-      placeId: {
-        field: 'place_id',
-        allowNull: false,
+      tourGuideId: {
+        field: 'tour_guide_id',
+        allowNull: true,
         references: {
-          model: 'Places',
+          model: 'TourGuides',
           key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        primaryKey: true,
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
       userId: {
         field: 'user_id',
         allowNull: false,
         references: {
           model: 'Users',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        primaryKey: true,
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
     },
     {
       sequelize,
-      modelName: 'Wishlist',
-      tableName: 'Wishlists',
+      modelName: 'UserFavoriteTourGuide',
+      tableName: 'UserFavoriteTourGuides',
       underscored: true,
-      paranoid: true,
+      timestamps: false,
     }
   );
-  return Wishlist;
+  return UserFavoriteTourGuide;
 };

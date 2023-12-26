@@ -19,6 +19,11 @@ const getById = async ({ id }) => {
   return reviewRepository.getById(id);
 };
 
+const getByPlaceId = async ({ id }) => {
+  await placeRepository.checkAvailability(id);
+  return reviewRepository.getAllByPlaceId(id);
+};
+
 const updateRatingAndReview = async ({ id, rating }) => {
   try {
     const place = await placeRepository.getById(id);
@@ -83,4 +88,4 @@ const remove = async ({ id }) => {
   }
 };
 
-module.exports = { checkReviewAvailability, getAll, getById, create, update, remove };
+module.exports = { checkReviewAvailability, getAll, getById, getByPlaceId, create, update, remove };

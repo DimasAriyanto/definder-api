@@ -28,6 +28,20 @@ const getOne = async (req, res, next) => {
   }
 };
 
+const getByPlaceId = async (req, res, next) => {
+  try {
+    const { place_id: id } = req.params;
+    const result = await reviewService.getByPlaceId({ id });
+    res.status(StatusCodes.OK).json({
+      status: 'Success',
+      message: 'Success',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const create = async (req, res, next) => {
   try {
     const payload = {
@@ -79,6 +93,7 @@ const remove = async (req, res, next) => {
 module.exports = {
   getAll,
   getOne,
+  getByPlaceId,
   create,
   update,
   remove,

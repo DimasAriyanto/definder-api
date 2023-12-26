@@ -39,18 +39,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.ENUM('1', '2', '3', '4', '5'),
       },
-      createdAt: {
-        field: 'created_at',
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        field: 'updated_at',
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
     });
   },
   async down(queryInterface, Sequelize) {

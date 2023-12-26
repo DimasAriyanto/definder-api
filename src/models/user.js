@@ -9,16 +9,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasOne(models.Review, {
+      User.hasOne(models.TourGuide, {
         foreignKey: 'userId',
       });
-      User.belongsToMany(models.Place, {
-        through: 'Wishlist',
+      User.hasMany(models.Review, {
+        foreignKey: 'userId',
+      });
+      User.hasMany(models.Mbti, {
+        foreignKey: 'userId',
+      });
+      User.hasMany(models.Transportation, {
+        foreignKey: 'userId',
+      });
+      User.belongsToMany(models.TourGuide, {
+        through: 'UserFavoriteTourGuide',
       });
     }
   }
   User.init(
     {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+      },
       name: {
         allowNull: true,
         type: DataTypes.STRING,
@@ -27,6 +42,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         type: DataTypes.STRING,
+      },
+      isVerified: {
+        field: 'is_verified',
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       password: {
         allowNull: true,
@@ -38,6 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'User',
       tableName: 'Users',
       underscored: true,
+      timestamps: false,
     }
   );
   return User;

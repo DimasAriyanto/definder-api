@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Article.init(
     {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+      },
       tourGuideId: {
         field: 'tour_guide_id',
         allowNull: false,
@@ -39,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Article',
       tableName: 'Articles',
       underscored: true,
-      paranoid: true,
+      timestamps: false,
     }
   );
   return Article;

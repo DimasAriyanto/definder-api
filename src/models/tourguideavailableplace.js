@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         primaryKey: true,
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
       placeId: {
         field: 'place_id',
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         primaryKey: true,
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
     },
     {
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'TourGuideAvailablePlace',
       tableName: 'TourGuideAvailablePlaces',
       underscored: true,
-      paranoid: true,
+      timestamps: false,
     }
   );
   return TourGuideAvailablePlace;

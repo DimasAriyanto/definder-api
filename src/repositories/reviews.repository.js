@@ -1,13 +1,34 @@
-const { sequelize, Review } = require('../models');
+const { sequelize, Review, User } = require('../models');
 const { NotFoundError } = require('../errors');
 
 const getAll = async () => {
   return Review.findAll();
 };
 
+const getAllByPlaceId = async (id) => {
+  return Review.findAll({
+    attributes: ['review', 'rating', 'userId'],
+    where: {
+      placeId: id,
+    },
+    include: [
+      {
+        model: User,
+        attributes: ['name'], // Include the 'name' column from the User model
+      },
+    ],
+  });
+};
+
 const getById = async (id) => {
   return Review.findByPk(id);
 };
+
+// const getAllByPlaceId = async (id) => {
+//   return Review.findAll({
+//     where: { placeId: id },
+//   });
+// };
 
 const create = async (payload) => {
   return sequelize.transaction(async (transaction) => {
@@ -53,6 +74,7 @@ const countRatingByPlace = async (id) => {
 module.exports = {
   getAll,
   getById,
+  getAllByPlaceId,
   create,
   update,
   remove,

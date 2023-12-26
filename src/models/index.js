@@ -39,14 +39,14 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 
-// (async () => {
-//   try {
-//     db.sequelize
-//       .sync({ force: false, alter: true })
-//       .then(() => console.log('Database synced'));
-//   } catch (error) {
-//     console.log('Unable to sync user model:', error);
-//   }
-// })();
+(async () => {
+  try {
+    db.sequelize
+      .sync({ force: false, alter: true })
+      .then(() => console.log('Database synced'));
+  } catch (error) {
+    console.log('Unable to sync user model:', error);
+  }
+})();
 
 module.exports = db;

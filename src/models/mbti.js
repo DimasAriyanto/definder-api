@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Owner extends Model {
+  class Mbti extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,33 +9,40 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Mbti.belongsTo(models.User)
     }
   }
-  Owner.init(
+  Mbti.init(
     {
       id: {
         allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
+        autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
-      name: {
-        allowNull: true,
-        type: DataTypes.STRING,
+      userId: {
+        field: 'user_id',
+        allowNull: false,
+        references: {
+          model: 'Users',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        type: DataTypes.INTEGER,
       },
-      profileLink: {
-        field: 'profile_link',
+      mbti: {
         allowNull: false,
         type: DataTypes.STRING,
-      },
+      }
     },
     {
       sequelize,
-      modelName: 'Owner',
-      tableName: 'Owners',
+      modelName: 'Mbti',
+      tableName: 'Mbtis',
       underscored: true,
-      paranoid: true,
+      timestamps: false,
     }
   );
-  return Owner;
+  return Mbti;
 };

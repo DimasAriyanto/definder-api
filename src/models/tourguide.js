@@ -16,15 +16,18 @@ module.exports = (sequelize, DataTypes) => {
       TourGuide.belongsToMany(models.Place, {
         through: 'TourGuideAvailablePlace',
       });
+      TourGuide.belongsToMany(models.User, {
+        through: 'UserFavoriteTourGuide',
+      });
     }
   }
   TourGuide.init(
     {
       id: {
         allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
-        type: DataTypes.UUID
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
       },
       userId: {
         field: 'user_id',
@@ -35,29 +38,15 @@ module.exports = (sequelize, DataTypes) => {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
-      experience: {
+      rating: {
         allowNull: false,
-        type: DataTypes.TEXT
+        type: DataTypes.DECIMAL,
       },
-      languageSpoken: {
-        field: 'language_spoken',
+      reviews: {
         allowNull: false,
-        type: DataTypes.STRING
-      },
-      specializations: {
-        allowNull: false,
-        type: DataTypes.STRING
-      },
-      certifications: {
-        allowNull: false,
-        type: DataTypes.STRING
-      },
-      availabilitySchedule: {
-        field: 'availability_schedule',
-        allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER,
       },
       cost: {
         allowNull: false,
@@ -69,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'TourGuide',
       tableName: 'TourGuides',
       underscored: true,
-      paranoid: true,
+      timestamps: false,
     }
   );
   return TourGuide;

@@ -9,9 +9,6 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      // Category.hasMany(models.TempatWisata, {
-      //   foreignKey: 'categoryId',
-      // });
       Category.belongsToMany(models.Place, {
         through: 'PlaceCategory',
       });
@@ -21,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: {
         allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
-        type: DataTypes.UUID
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
       },
       name: {
         allowNull: false,
@@ -35,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Category',
       tableName: 'Categories',
       underscored: true,
-      paranoid: true,
+      timestamps: false,
     }
   );
   return Category;

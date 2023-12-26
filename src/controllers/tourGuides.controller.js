@@ -1,9 +1,9 @@
 const { StatusCodes } = require('http-status-codes');
-const ownerService = require('./../services/owners.service');
+const tourGuideService = require('./../services/tourGuide.service');
 
 const getAll = async (req, res, next) => {
   try {
-    const result = await ownerService.getAll();
+    const result = await tourGuideService.getAll();
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -17,7 +17,21 @@ const getAll = async (req, res, next) => {
 const getOne = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await ownerService.getById({ id });
+    const result = await tourGuideService.getById({ id });
+    res.status(StatusCodes.OK).json({
+      status: 'Success',
+      message: 'Success',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getByPlaceId = async (req, res, next) => {
+  try {
+    const { place_id: id } = req.params;
+    const result = await tourGuideService.getByPlaceId({ id });
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -30,8 +44,11 @@ const getOne = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const payload = { ...req.body };
-    const result = await ownerService.create(payload);
+    const payload = {
+      userId: req.user.id,
+      ...req.body,
+    };
+    const result = await tourGuideService.create(payload);
     res.status(StatusCodes.CREATED).json({
       status: 'Success',
       message: 'Success',
@@ -45,10 +62,11 @@ const create = async (req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const payload = {
-      id: req.params.id,
+      userId: req.user.id,
+      ...req.params,
       ...req.body,
     };
-    await ownerService.update(payload);
+    await tourGuideService.update(payload);
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -61,7 +79,7 @@ const update = async (req, res, next) => {
 const remove = async (req, res, next) => {
   try {
     const { id } = req.params;
-    await ownerService.remove({ id });
+    await tourGuideService.remove({ id });
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -74,6 +92,7 @@ const remove = async (req, res, next) => {
 module.exports = {
   getAll,
   getOne,
+  getByPlaceId,
   create,
   update,
   remove,

@@ -18,6 +18,11 @@ const getById = async ({ id }) => {
   return imageRepository.getById(id);
 };
 
+const getByPlaceId = async ({ id }) => {
+  await placeRepository.checkAvailability(id);
+  return imageRepository.getAllByPlaceId(id);
+};
+
 const create = async (payload) => {
   return imageRepository.create(payload);
 };
@@ -33,4 +38,4 @@ const remove = async ({ id }) => {
   return imageRepository.remove(id);
 };
 
-module.exports = { checkImageAvailability, getAll, getById, create, update, remove };
+module.exports = { checkImageAvailability, getAll, getById, getByPlaceId, create, update, remove };

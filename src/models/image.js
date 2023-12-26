@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Image.init(
     {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+      },
       placeId: {
         field: 'place_id',
         allowNull: false,
@@ -23,11 +29,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
       image: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.TEXT
       },
     },
     {
@@ -35,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Image',
       tableName: 'Images',
       underscored: true,
+      timestamps: false,
     }
   );
   return Image;

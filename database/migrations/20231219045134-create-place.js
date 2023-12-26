@@ -33,18 +33,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      createdAt: {
-        field: 'created_at',
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        field: 'updated_at',
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
     });
   },
   async down(queryInterface, Sequelize) {

@@ -17,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: {
         allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
-        type: DataTypes.UUID,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
       },
       placeId: {
         field: 'place_id',
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
       userId: {
         field: 'user_id',
@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
       review: {
         allowNull: false,
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Review',
       tableName: 'Reviews',
       underscored: true,
-      paranoid: true,
+      timestamps: false,
     }
   );
   return Review;

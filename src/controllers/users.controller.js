@@ -28,6 +28,20 @@ const getOne = async (req, res, next) => {
   }
 };
 
+const whoAmI = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const result = await userService.getById({ id });
+    res.status(StatusCodes.OK).json({
+      status: 'Success',
+      message: 'Success',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const create = async (req, res, next) => {
   try {
     const payload = { ...req.body };
@@ -58,6 +72,22 @@ const update = async (req, res, next) => {
   }
 };
 
+const updatePassword = async (req, res, next) => {
+  try {
+    const payload = {
+      id: req.params.id,
+      ...req.body,  
+    };
+    await userService.updatePassword(payload);
+    res.status(StatusCodes.OK).json({
+      status: 'Success',
+      message: 'Success',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const remove = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -74,7 +104,9 @@ const remove = async (req, res, next) => {
 module.exports = {
   getAll,
   getOne,
+  whoAmI,
   create,
   update,
+  updatePassword,
   remove,
 };

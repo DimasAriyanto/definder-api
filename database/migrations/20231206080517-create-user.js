@@ -12,32 +12,26 @@ module.exports = {
       },
       name: {
         allowNull: true,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       email: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+      },
+      isVerified: {
+        field: 'is_verified',
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       password: {
         field: 'password',
         allowNull: true,
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        field: 'created_at',
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        field: 'updated_at',  
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
       },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Users');
-  }
+  },
 };

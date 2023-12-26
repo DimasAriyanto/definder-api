@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         primaryKey: true,
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
       categoryId: {
         field: 'category_id',
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         primaryKey: true,
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
       },
     },
     {

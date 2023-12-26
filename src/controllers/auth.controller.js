@@ -1,15 +1,26 @@
 const { StatusCodes } = require('http-status-codes');
 const authService = require('../services/auth.service');
-const userService = require('../services/users.service');
 
 const register = async (req, res, next) => {
   try {
     const payload = { ...req.body };
-    const result = await userService.create(payload);
+    const result = await authService.register(payload);
     res.status(StatusCodes.CREATED).json(result);
   } catch (err) {
     next(err);
   }
+};
+
+const activate = async (req, res) => {
+  const { token } = req.query;
+
+  const redirectUrl = await authService.activate(token);
+  res.redirect(redirectUrl);
+};
+
+const activateSuccess = (req, res) => {
+  const { successMessage } = req.query;
+  res.render('activate-success.ejs', { successMessage });
 };
 
 const login = async (req, res, next) => {
@@ -22,4 +33,10 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login };
+const logout = (req, res, next) => {
+  const token = req.headers['authorization'];
+
+  res.json({ message: 'Logout successful' });
+};
+
+module.exports = { register, activate, activateSuccess, login, logout };

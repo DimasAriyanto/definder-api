@@ -20,43 +20,17 @@ module.exports = {
         onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
       },
-      experience: {
+      rating: {
         allowNull: false,
-        type: Sequelize.TEXT
+        type: Sequelize.DECIMAL,
       },
-      languageSpoken: {
-        field: 'language_spoken',
+      reviews: {
         allowNull: false,
-        type: Sequelize.STRING
-      },
-      specializations: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      certifications: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      availabilitySchedule: {
-        field: 'availability_schedule',
-        allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
       },
       cost: {
         allowNull: false,
         type: Sequelize.DECIMAL
-      },
-      createdAt: {
-        field: 'created_at',
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        field: 'updated_at',  
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
       },
     });
   },

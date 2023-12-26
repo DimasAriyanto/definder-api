@@ -9,10 +9,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Place.hasOne(models.Review, {
+      Place.hasMany(models.Review, {
         foreignKey: 'placeId',
       });
       Place.hasMany(models.Image, {
+        foreignKey: 'placeId',
+      });
+      Place.hasMany(models.Description, {
+        foreignKey: 'placeId',
+      });
+      Place.hasMany(models.Transportation, {
         foreignKey: 'placeId',
       });
       Place.belongsToMany(models.Category, {
@@ -22,18 +28,20 @@ module.exports = (sequelize, DataTypes) => {
         through: 'TourGuideAvailablePlace',
       });
       Place.belongsToMany(models.User, {
-        through: 'Wishlist',
+        through: 'UserFavoritePlace',
       });
     }
   }
   Place.init(
     {
+      id: {
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+      },
       name: {
         allowNull: false,
-        type: DataTypes.STRING,
-      },
-      description: {
-        allowNull: true,
         type: DataTypes.STRING,
       },
       location: {
@@ -58,6 +66,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Place',
       tableName: 'Places',
       underscored: true,
+      timestamps: false,
     }
   );
   return Place;

@@ -2,12 +2,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Wishlists', {
-      placeId: {
-        field: 'place_id',
+    await queryInterface.createTable('UserFavoriteTourGuides', {
+      id: {
         allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      tourGuideId: {
+        field: 'tour_guide_id',
+        allowNull: true,
         references: {
-          model: 'Places',
+          model: 'TourGuides',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -25,21 +31,9 @@ module.exports = {
         onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
       },
-      createdAt: {
-        field: 'created_at',
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        field: 'updated_at',
-        allowNull: false,
-        defaultValue: new Date(),
-        type: Sequelize.DATE,
-      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Wishlists');
-  },
+    await queryInterface.dropTable('UserFavoriteTourGuides');
+  }
 };

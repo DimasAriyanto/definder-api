@@ -8,6 +8,10 @@ const getById = async (id) => {
   return User.findByPk(id);
 };
 
+const whoAmI = async (id) => {
+  return User.findByPk(id);
+};
+
 const getByEmail = async (email) => {
   return sequelize.transaction(async (transaction) => {
     const result = await User.findOne({ where: { email } }, { transaction });
@@ -22,16 +26,43 @@ const create = async (payload) => {
   });
 };
 
-const update = async ({ id, name, email, password }) => {
+const update = async ({ id, name, email }) => {
   return sequelize.transaction(async (transaction) => {
     await User.update(
       {
         name: name,
         email: email,
+      },
+      {
+        where: { id: id },
+      },
+      { transaction }
+    );
+  });
+};
+
+const updatePassword = async ({ id, password }) => {
+  return sequelize.transaction(async (transaction) => {
+    await User.update(
+      {
         password: password,
       },
       {
         where: { id: id },
+      },
+      { transaction }
+    );
+  });
+};
+
+const updateActivate = async (email) => {
+  return sequelize.transaction(async (transaction) => {
+    await User.update(
+      {
+        isVerified: true,
+      },
+      {
+        where: { email: email },
       },
       { transaction }
     );
@@ -44,4 +75,4 @@ const remove = async (id) => {
   });
 };
 
-module.exports = { getAll, getById, getByEmail, create, update, remove };
+module.exports = { getAll, getById, whoAmI, getByEmail, create, update, updatePassword, updateActivate, remove };

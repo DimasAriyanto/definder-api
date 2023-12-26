@@ -1,55 +1,30 @@
 const { Sequelize } = require('sequelize');
-const { sequelize, Place } = require('../models');
+const { sequelize, Place, Description } = require('../models');
 const Op = Sequelize.Op;
 const { NotFoundError } = require('../errors');
 
 const getAll = async () => {
-  return Place.findAll();
+  return Place.findAll({
+    limit: 100,
+  });
 };
+
 
 const getById = async (id) => {
   return Place.findByPk(id);
 };
 
 const getByName = async (name) => {
-  console.log(name);
   return sequelize.transaction(async (transaction) => {
-    const result = await Place.findAll(
-      {
-        where: sequelize.where(
-          sequelize.fn('LOWER', sequelize.col('name')),
-          'LIKE',
-          `%${name.toLowerCase()}%`
-        ),
-      },
-      { transaction }
-    );
-    return result;
-  });
-};
-
-const getByNameAndProvinci = async (name, location) => {
-  return sequelize.transaction(async (transaction) => {
-    const result = await Place.findAll(
-      {
-        where: {
-          [Op.and]: [
-            sequelize.where(
-              sequelize.fn('LOWER', sequelize.col('name')),
-              'LIKE',
-              `%${name.toLowerCase()}%`
-            ),
-            sequelize.where(
-              sequelize.fn('LOWER', sequelize.col('location')),
-              'LIKE',
-              `%${location.toLowerCase()}%`
-            ),
-          ],
-        },
-      },
-      { transaction }
-    );
-
+    const result = await Place.findAll({
+      where: sequelize.where(
+        sequelize.fn('LOWER', sequelize.col('name')),
+        'LIKE',
+        `%${name.toLowerCase()}%`
+      ),
+      limit: 100,
+      transaction,
+    });
     return result;
   });
 };
@@ -103,7 +78,6 @@ module.exports = {
   getAll,
   getById,
   getByName,
-  getByNameAndProvinci,
   create,
   update,
   updateRatingAndReview,

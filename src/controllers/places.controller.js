@@ -1,9 +1,71 @@
 const { StatusCodes } = require('http-status-codes');
+const axios = require('axios');
 const placeService = require('./../services/places.service');
 
 const getAll = async (req, res, next) => {
   try {
-    const result = await placeService.getAll();
+    const payload = {
+      daerah: req.query.daerah,
+      object: req.query.object,
+      mbti: req.query.mbti,
+      user: req.user.id,
+    };
+
+    const result = await placeService.getByMbti(payload);
+
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+const getAboutById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await placeService.getAboutById({ id });
+    res.status(StatusCodes.OK).json({
+      status: 'Success',
+      message: 'Success',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getTypeTransportById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await placeService.getTypeTransportById({ id });
+    res.status(StatusCodes.OK).json({
+      status: 'Success',
+      message: 'Success',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getReviewById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await placeService.getReviewById({ id });
+    res.status(StatusCodes.OK).json({
+      status: 'Success',
+      message: 'Success',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getTourGuideById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await placeService.getTourGuideById({ id });
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -17,21 +79,7 @@ const getAll = async (req, res, next) => {
 const getOne = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await placeService.getById({ id });
-    res.status(StatusCodes.OK).json({
-      status: 'Success',
-      message: 'Success',
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-const getByNameAndProvinci = async (req, res, next) => {
-  try {
-    const { name, provinci } = req.query;
-    const result = await placeService.getByNameAndProvinci({ name, provinci });
+    const result = await placeService.getOne(id);
     res.status(StatusCodes.OK).json({
       status: 'Success',
       message: 'Success',
@@ -100,9 +148,12 @@ const remove = async (req, res, next) => {
 
 module.exports = {
   getAll,
-  getOne,
   search,
-  getByNameAndProvinci,
+  getAboutById,
+  getTypeTransportById,
+  getReviewById,
+  getTourGuideById,
+  getOne,
   create,
   update,
   remove,

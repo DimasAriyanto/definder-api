@@ -5,11 +5,21 @@ const getAll = async () => {
   return Image.findAll();
 };
 
+const getAllByPlaceId = async (id) => {
+  return Image.findAll({
+    attributes: ['image'],
+    where: {
+      placeId: id,
+    },
+  });
+};
+
 const getById = async (id) => {
   return Image.findByPk(id);
 };
 
-const getByPlaceId = async (id) => {
+
+const getOneByPlaceId = async (id) => {
   return Image.findOne({
     where: { placeId: id },
   });
@@ -51,7 +61,8 @@ const checkAvailability = async (id) => {
 module.exports = {
   getAll,
   getById,
-  getByPlaceId,
+  getAllByPlaceId,
+  getOneByPlaceId,
   create,
   update,
   remove,

@@ -25,6 +25,11 @@ const getById = async ({ id }) => {
   return userRepository.getById(id);
 };
 
+const whoAmI = async ({ id }) => {
+  await checkUserAvailability(id);
+  return userRepository.whoAmI(id);
+};
+
 const create = async ({ name, email, password, password_confirmation }) => {
   if (password !== password_confirmation) {
     throw new BadRequestError('Please ensure that the password and password confirmation match!');
@@ -36,13 +41,26 @@ const create = async ({ name, email, password, password_confirmation }) => {
   return await userRepository.create({ name, email, password: encryptedPassword });
 };
 
-const update = async ({ id, name, email, password }) => {
+const update = async ({ id, name, email }) => {
   await checkUserAvailability(id);
-  await checkAvailabilityUserWithEmail(email);
 
-  const encryptedPassword = await bcrypt.hash(password, 10);
+  return userRepository.update({ id, name, email });
+};
 
-  return userRepository.update({ id, name, email, password: encryptedPassword });
+const updatePassword = async ({ id, oldPassword, newPassword }) => {
+  await checkUserAvailability(id);
+
+  const user = await userRepository.getById(id);
+
+  const isPasswordMatch = await bcrypt.compare(oldPassword, user.password);
+
+  if (!isPasswordMatch) {
+    throw new BadRequestError('Old password is incorrect!');
+  }
+
+  const encryptedNewPassword = await bcrypt.hash(newPassword, 10);
+
+  return userRepository.updatePassword({ id, password: encryptedNewPassword });
 };
 
 const remove = async ({ id }) => {
@@ -50,4 +68,4 @@ const remove = async ({ id }) => {
   return userRepository.remove(id);
 };
 
-module.exports = { getAll, getById, create, update, remove };
+module.exports = { getAll, getById, whoAmI, create, update, updatePassword, remove };
